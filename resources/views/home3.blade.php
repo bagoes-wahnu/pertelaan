@@ -143,75 +143,75 @@
                   <table class="table">
                     <tr>
                       <th>No SK Pertelaan</th>
-                      {{-- <td>{{ $aspects->no_skrk }}</td> --}}
+                      <td>{{ $aspects->no_sk_pertelaan }}</td>
                     </tr>
                     <tr>
                       <th>Tanggal Pertelaan</th>
-                      {{-- <td>{{ $aspects->no_imb }}</td> --}}
+                      <td>{{ $aspects->tgl_pertelaan }}</td>
                     </tr>
                     <tr>
                       <th>Jenis Pertelaan</th>
-                      {{-- <td>{{ $aspects->nama_pengadu }}</td> --}}
+                      <td>{{ $aspects->jenis_pertelaan }}</td>
                     </tr>
                     <tr>
                       <th>Nama Bangunan</th>
-                      {{-- <td>{{ $aspects->alamat_pengadu }}</td> --}}
+                      <td>{{ $aspects->nama_bangunan }}</td>
                     </tr>
                     <tr>
                       <th>No Persetujuan Teknis</th>
-                      {{-- <td>{{ $aspects->nama_teradu }}</td> --}}
+                      <td>{{ $aspects->no_persetujuan_teknis }}</td>
                     </tr>
                     <tr>
                       <th>Tgl Persetujuan Teknis</th>
-                      {{-- <td>{{ $aspects->alamat_teradu }}</td> --}}
+                      <td>{{ $aspects->tgl_persetujuan_teknis }}</td>
                     </tr>
                     <tr>
                       <th>Nama Pemohon Pertelaan</th>
-                      {{-- <td>{{ $aspects->kelurahan }}</td> --}}
+                      <td>{{ $aspects->nama_pemohon_pertelaan }}</td>
                     </tr>
                     <tr>
                       <th>Permohonan Bangunan Pertelaan</th>
-                      {{-- <td>{{ $aspects->kecamatan }}</td> --}}
+                      <td>{{ $aspects->permohonan_bangunan_pertelaan }}</td>
                     </tr>
                     <tr>
                       <th>Kelurahan</th>
-                      {{-- <td>{{ $aspects->kecamatan }}</td> --}}
+                      <td>{{ $aspects->kelurahan }}</td>
                     </tr>
                     <tr>
                       <th>Kecamatan</th>
-                      {{-- <td>{{ $aspects->kecamatan }}</td> --}}
+                      <td>{{ $aspects->kecamatan }}</td>
                     </tr>
                     <tr>
                       <th>No IMB</th>
-                      {{-- <td>{{ $aspects->status_pengaduan }}</td> --}}
+                      <td>{{ $aspects->no_imb }}</td>
                     </tr>
                     <tr>
                       <th>Tanggal IMB</th>
-                      {{-- <td>{{ $aspects->keterangan }}</td> --}}
+                      <td>{{ $aspects->tgl_imb }}</td>
                     </tr>
                     <tr>
                       <th>Atas Nama</th>
-                      {{-- <td>{{ $aspects->keterangan }}</td> --}}
+                      <td>{{ $aspects->atas_nama }}</td>
                     </tr>
                     <tr>
                       <th>Nama Pemohon IMB</th>
-                      {{-- <td>{{ $aspects->keterangan }}</td> --}}
+                      <td>{{ $aspects->nama_pemohon_imb }}</td>
                     </tr>
                     <tr>
                       <th>Alamat Persil IMB</th>
-                      {{-- <td>{{ $aspects->keterangan }}</td> --}}
+                      <td>{{ $aspects->alamat_persil_imb }}</td>
                     </tr>
                     <tr>
                       <th>Penggunaan Bangunan</th>
-                      {{-- <td>{{ $aspects->keterangan }}</td> --}}
+                      <td>{{ $aspects->penggunaan_bangunan }}</td>
                     </tr>
                     <tr>
                       <th>Luas Bangunan</th>
-                      {{-- <td>{{ $aspects->keterangan }}</td> --}}
+                      <td>{{ $aspects->luas_bangunan }}</td>
                     </tr>
                     <tr>
                       <th>Jumlah Lantai</th>
-                      {{-- <td>{{ $aspects->keterangan }}</td> --}}
+                      <td>{{ $aspects->jumlah_lantai }}</td>
                     </tr>
                     <tr>
                       <th><hr></th>
@@ -219,19 +219,19 @@
                     </tr>
                     <tr>
                       <th>File SK Pertelaan</th>
-                      <td><a href="{{asset("storage/file_dokumen/$aspects->file_dokumen")}}" target="_blank">{{ $aspects->file_dokumen }}</a></td>
+                      <td><a href="{{asset("storage/file_sk_pertelaan/$aspects->file_sk_pertelaan")}}" target="_blank">{{ $aspects->file_sk_pertelaan }}</a></td>
                     </tr>
                     <tr>
                       <th>File Perstek</th>
-                      <td><a href="{{asset("storage/file_lapangan/$aspects->file_lapangan")}}" target="_blank">{{ $aspects->file_lapangan }}</a></td>
+                      <td><a href="{{asset("storage/file_perstek/$aspects->file_perstek")}}" target="_blank">{{ $aspects->file_perstek }}</a></td>
                     </tr>
                     <tr>
                       <th>File Gambar Pertelaan</th>
-                      <td><a href="{{asset("storage/file_lapangan/$aspects->file_lapangan")}}" target="_blank">{{ $aspects->file_lapangan }}</a></td>
+                      <td><a href="{{asset("storage/file_gambar_pertelaan/$aspects->file_gambar_pertelaan")}}" target="_blank">{{ $aspects->file_gambar_pertelaan }}</a></td>
                     </tr>
                     <tr>
                       <th>File Gambar as Build</th>
-                      <td><a href="{{asset("storage/file_lapangan/$aspects->file_lapangan")}}" target="_blank">{{ $aspects->file_lapangan }}</a></td>
+                      <td><a href="{{asset("storage/file_gambar_as_build/$aspects->file_gambar_as_build")}}" target="_blank">{{ $aspects->file_gambar_as_build }}</a></td>
                     </tr>
                   </table>
                 </div>

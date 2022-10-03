@@ -17,5 +17,5 @@ class Pertelaan extends Model
 
     // public $incrementing = false;
 
-    protected $table = 'imb';
+    protected $table = 'pertelaan';
 }
