@@ -15,7 +15,7 @@ class PertelaanController extends Controller
 {
     public function json(Request $request){
         if ($request->ajax()) {
-            $data = Pertelaan::select('*');
+            $data = Pertelaan::select('*')->limit(10000);
             return Datatables::of($data)
                     ->addIndexColumn()
                     ->addColumn('action', function($data){
@@ -23,7 +23,7 @@ class PertelaanController extends Controller
                         // dd($gid);
                         $view = route('show', $data);
                         $btn = '<input type="hidden" name="gid" id="gid" value="'.$data->gid.'">';
-                        $btn = $btn . '<a href="'.$view.'" target="_blank" onclick="show_json('.$data->gid.')" data-gid="'.$data->gid.'" class="edit btn btn-info btn-sm mr-2 mb-2">
+                        $btn = $btn . '<a href="'.$view.'" target="_blank" data-gid="'.$data->gid.'" class="edit btn btn-info btn-sm mr-2 mb-2">
                         View
                         </a>';
                         $btn = $btn . '<a href="javascript:void(0)" onclick="edit_json('.$data->gid.')" data-gid="'.$data->gid.'" data-toggle="modal" data-target="#modal-lg" class="edit btn btn-primary btn-sm mr-2 mb-2">
@@ -48,66 +48,99 @@ class PertelaanController extends Controller
         // dd($request->scan_imb);
         // dd($data);
         // dd($request->hasFile('scan_imb'));
-        if ($request->hasFile('scan_imb')) {
-            if (Storage::exists('public/scan_imb/'.$request->emp_scan_imb)) {
-                // dd('exist');
-                Storage::delete('public/scan_imb/'.$request->emp_scan_imb);
+        if ($request->hasFile('file_sk_pertelaan')) {
+            if (Storage::exists('public/file_sk_pertelaan/'.$request->emp_file_sk_pertelaan)) {
+                Storage::delete('public/file_sk_pertelaan/'.$request->emp_file_sk_pertelaan);
             }
-            $image = $request->file('scan_imb');
-            // $destinationPath = 'public/scan_imb/';
+            $image = $request->file('file_sk_pertelaan');
             $fileName = date('YmdHis') . "." . $image->getClientOriginalExtension();
-            // $image->move($destinationPath, $profileImage);
-            $image->storeAs('public/scan_imb', $fileName);
-            // dd($image);
-            // $filename = "$profileImage";
+            $image->storeAs('public/file_sk_pertelaan', $fileName);
         }else {
-            $fileName = $request->emp_scan_imb;
+            $fileName = $request->emp_file_sk_pertelaan;
         }
-
-        if ($request->hasFile('scan_gambar_imb')) {
-            if (Storage::exists('public/scan_gambar_imb/'.$request->emp_scan_gambar_imb)) {
-                Storage::delete('public/scan_gambar_imb/'.$request->emp_scan_gambar_imb);
+        if ($request->hasFile('file_perstek')) {
+            if (Storage::exists('public/file_perstek/'.$request->emp_file_perstek)) {
+                Storage::delete('public/file_perstek/'.$request->emp_file_perstek);
             }
-            $image1 = $request->file('scan_gambar_imb');
-            $fileName1 = date('YmdHis') . "." . $image1->getClientOriginalExtension();
-            $image1->storeAs('public/scan_gambar_imb', $fileName1);
-        }else {
-            $fileName1 = $request->emp_scan_gambar_imb;
-        }
-
-        if ($request->hasFile('scan_zoning')) {
-            if (Storage::exists('public/scan_zoning/'.$request->emp_scan_zoning)) {
-                // dd('exist');
-                Storage::delete('public/scan_zoning/'.$request->emp_scan_zoning);
-            }
-            $image2 = $request->file('scan_zoning');
-            // $destinationPath = 'public/scan_imb/';
+            $image2 = $request->file('file_perstek');
             $fileName2 = date('YmdHis') . "." . $image2->getClientOriginalExtension();
-            // $image->move($destinationPath, $profileImage);
-            $image2->storeAs('public/scan_zoning', $fileName2);
+            $image2->storeAs('public/file_perstek', $fileName2);
         }else {
-            $fileName2 = $request->emp_scan_zoning;
+            $fileName2 = $request->emp_file_perstek;
+        }
+        if ($request->hasFile('file_gambar_pertelaan')) {
+            if (Storage::exists('public/file_gambar_pertelaan/'.$request->emp_file_gambar_pertelaan)) {
+                Storage::delete('public/file_gambar_pertelaan/'.$request->emp_file_gambar_pertelaan);
+            }
+            $image3 = $request->file('file_gambar_pertelaan');
+            $fileName3 = date('YmdHis') . "." . $image3->getClientOriginalExtension();
+            $image3->storeAs('public/file_gambar_pertelaan', $fileName3);
+        }else {
+            $fileName3 = $request->emp_file_gambar_pertelaan;
+        }
+        if ($request->hasFile('file_gambar_as_build')) {
+            if (Storage::exists('public/file_gambar_as_build/'.$request->emp_file_gambar_as_build)) {
+                Storage::delete('public/file_gambar_as_build/'.$request->emp_file_gambar_as_build);
+            }
+            $image4 = $request->file('file_gambar_as_build');
+            $fileName4 = date('YmdHis') . "." . $image4->getClientOriginalExtension();
+            $image4->storeAs('public/file_gambar_as_build', $fileName4);
+        }else {
+            $fileName4 = $request->emp_file_gambar_as_build;
         }
 
-        Pertelaan::updateOrCreate([
-        // Product::update([
-            'gid' => $request->gid
-        ],
-        [
-            'provider' => $request->provider,
-            'tipe_tower' => $request->tipe_tower,
-            'tinggi_tower' => $request->tinggi_tower,
-            'sk_imb' => $request->sk_imb,
-            'alamat_pemohon' => $request->alamat_pemohon,
-            'alamat_tower' => $request->alamat_tower,
+        if (Pertelaan::where('gid', $request->gid)->exists()) {
+            $pertelaan = Pertelaan::findOrFail($request->gid);
+            $pertelaan->no_sk_pertelaan = $request->no_sk_pertelaan;
+            $pertelaan->tgl_pertelaan = $request->tgl_pertelaan;
+            $pertelaan->jenis_pertelaan = $request->jenis_pertelaan;
+            $pertelaan->nama_bangunan = $request->nama_bangunan;
+            $pertelaan->no_persetujuan_teknis = $request->no_persetujuan_teknis;
+            $pertelaan->tgl_persetujuan_teknis = $request->tgl_persetujuan_teknis;
+            $pertelaan->nama_pemohon_pertelaan = $request->nama_pemohon_pertelaan;
+            $pertelaan->permohonan_bangunan_pertelaan = $request->permohonan_bangunan_pertelaan;
+            $pertelaan->kelurahan = $request->kelurahan;
+            $pertelaan->kecamatan = $request->kecamatan;
+            $pertelaan->no_imb = $request->no_imb;
+            $pertelaan->tgl_imb = $request->tgl_imb;
+            $pertelaan->atas_nama = $request->atas_nama;
+            $pertelaan->nama_pemohon_imb = $request->nama_pemohon_imb;
+            $pertelaan->alamat_persil_imb = $request->alamat_persil_imb;
+            $pertelaan->penggunaan_bangunan = $request->penggunaan_bangunan;
+            $pertelaan->luas_bangunan = $request->luas_bangunan;
+            $pertelaan->jumlah_lantai = $request->jumlah_lantai;
+            $pertelaan->file_sk_pertelaan = $fileName;
+            $pertelaan->file_perstek = $fileName2;
+            $pertelaan->file_gambar_pertelaan = $fileName3;
+            $pertelaan->file_gambar_as_build = $fileName4;
+            $pertelaan->save();
+        }else {
+            Pertelaan::create([
+            'gid' => Helper::IDGenerator(new Pertelaan,'gid',5),
+            'no_sk_pertelaan' => $request->no_sk_pertelaan,
+            'tgl_pertelaan' => $request->tgl_pertelaan,
+            'jenis_pertelaan' => $request->jenis_pertelaan,
+            'nama_bangunan' => $request->nama_bangunan,
+            'no_persetujuan_teknis' => $request->no_persetujuan_teknis,
+            'tgl_persetujuan_teknis' => $request->tgl_persetujuan_teknis,
+            'nama_pemohon_pertelaan' => $request->nama_pemohon_pertelaan,
+            'permohonan_bangunan_pertelaan' => $request->permohonan_bangunan_pertelaan,
             'kelurahan' => $request->kelurahan,
             'kecamatan' => $request->kecamatan,
-            'scan_imb' => $fileName,
-            'scan_gambar_imb' => $fileName1,
-            'scan_zoning' => $fileName2,
-            'jenis_data' => $request->jenis_data,
-        ]);        
-
+            'no_imb' => $request->no_imb,
+            'tgl_imb' => $request->tgl_imb,
+            'atas_nama' => $request->atas_nama,
+            'nama_pemohon_imb' => $request->nama_pemohon_imb,
+            'alamat_persil_imb' => $request->alamat_persil_imb,
+            'penggunaan_bangunan' => $request->penggunaan_bangunan,
+            'luas_bangunan' => $request->luas_bangunan,
+            'jumlah_lantai' => $request->jumlah_lantai,
+            'file_sk_pertelaan' => $fileName,
+            'file_perstek' => $fileName2,
+            'file_gambar_pertelaan' => $fileName3,
+            'file_gambar_as_build' => $fileName4,
+            ]);
+        }
         return response()->json(['success'=>'Data Tower saved successfully.']);
     }
     public function delete_json($gid)
@@ -126,5 +159,38 @@ class PertelaanController extends Controller
         // dd(File::delete(public_path('scan_imb/'.$data->scan_imb)));
         Tabg::find($gid)->delete();
         return response()->json(['success'=>'Data Tower deleted successfully.']);
+    }
+    public function search_json(Request $request){
+        // dd($request->all());
+        if ($request->ajax()) {
+            // dd($request->kolom);
+            $data = Pertelaan::select('*')->limit(10000);
+            if ($request->kolom != '' && $request->nilai != '') {
+                // dd($data->where("'$request->kolom'" == 1));
+                // $data = $data->where($request->kolom, $request->nilai);
+                $data = $data->where($request->kolom, 'LIKE', '%' . $request->nilai . '%');
+                $count = $data->count();
+                // dd($count);
+            }
+            return Datatables::of($data)
+                    ->addIndexColumn()
+                    ->addColumn('action', function($data){
+                        // $gid = $data->gid;
+                        // dd($gid);
+                        $view = route('show', $data);
+                        $btn = '<input type="hidden" name="gid" id="gid" value="'.$data->gid.'">';
+                        $btn = $btn . '<a href="'.$view.'" target="_blank" onclick="show_json('.$data->gid.')" data-gid="'.$data->gid.'" class="edit btn btn-info btn-sm mr-2 mb-2">
+                        View
+                        </a>';
+                        $btn = $btn . '<a href="javascript:void(0)" onclick="edit_json('.$data->gid.')" data-gid="'.$data->gid.'" data-toggle="modal" data-target="#modal-lg" class="edit btn btn-primary btn-sm mr-2 mb-2">
+                        Update
+                        </a>';
+                        return $btn;
+                    })
+                    ->rawColumns(['action'])
+                    ->make(true);
+        }
+        // return view('home2');
+        return response()->json(['success'=>'Data Ditemukan.']);
     }
 }

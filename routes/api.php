@@ -20,6 +20,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::get('/pertelaan/json', [PertelaanController::class,'json'])->name('pertelaan.json');
+Route::get('/pertelaan/search_json', [PertelaanController::class,'search_json'])->name('pertelaan.search.json');
 Route::get('/pertelaan/show_json/{gid}', [PertelaanController::class,'show_json'])->name('pertelaan.show.json');
-Route::post('/pertelaan/store_json/{gid}', [PertelaanController::class,'store_json'])->name('pertelaan.store.json');
+Route::post('/pertelaan/store_json', [PertelaanController::class,'store_json'])->name('pertelaan.store.json');
 Route::delete('/pertelaan/delete_json/{gid}', [PertelaanController::class,'delete_json'])->name('pertelaan.delete.json');
